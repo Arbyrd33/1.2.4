@@ -160,6 +160,7 @@ solvay.drive(280);
 solvay.emergency();
 console.log(`Oh noooo, the nearest gas station is really far awaaayyy...`);
 solvay.drive(167);
+
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -174,7 +175,15 @@ solvay.drive(167);
 */
 
 class Lambdasian {
-  
+  constructor(prop){
+    this.name = prop.name;
+    this.age = prop.age;
+    this.location = prop.location
+  }
+  speak(){
+    console.log(`Hello! My name is ${this.name}, and I'm from ${this.location}!`)
+    return `Hello my name is ${this.name}, I am from ${this.location}`
+  }
 }
 
 /*
