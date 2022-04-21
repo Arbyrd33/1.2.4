@@ -133,16 +133,15 @@ class Car {
           console.log(`At least you made it on time, you think, and at least the ${this.model} was able to make it for all ${distance} miles.`)
           console.log(`The odometer tells you that you've traveled a total of ${this.odometer} miles.`)
         }
-      } else if (this.tank < distance) {
-//       this.drivableMiles = (this.milesPerGallon * this.tank);
-//       console.log(`The ${this.model} won't be able to make the last ${distance - this.drivableMiles} miles...`);
-//       this.tank -= this.drivableMiles;
-//       console.log(`It drives for ${this.drivableMiles} miles before it has ${this.tank} gallons left.`);
-//       this.odometer += (this.drivableMiles);
-//     } 
-//     else {
-//       (console.log(`Something's wrong. The key doesn't start the ignition...`));
-  }
+    } else if (this.tank < (distance/this.milesPerGallon)) {
+      this.drivableMiles = (this.milesPerGallon * this.tank);
+      console.log(`The ${this.model} won't be able to make the last ${distance - this.drivableMiles} miles...`);
+      this.tank = 0;
+      console.log(`It drives for ${this.drivableMiles} miles before it runs out of gas.`);
+      this.odometer += (this.drivableMiles);
+      console.log(`The odometer tells you that your ${this.model} has driven a total of ${this.odometer} miles since it drove off the lot.`)
+      return `I ran out of fuel at ${this.odometer} miles!`
+    } else {(console.log(`Something's wrong. The key doesn't start the ignition...`));}
 }
   emergency(){
     if (this.tank === 0){
@@ -159,6 +158,8 @@ solvay.fill(10);
 solvay.drive(50);
 solvay.drive(280);
 solvay.emergency();
+console.log(`Oh noooo, the nearest gas station is really far awaaayyy...`);
+solvay.drive(167);
 /*
   TASK 3
     - Write a Lambdasian class.
