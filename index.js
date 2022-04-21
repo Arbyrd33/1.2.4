@@ -11,17 +11,21 @@
 // EXAMPLE SOLUTION CODE:
 class Airplane {
   constructor(name) {
-    this.name = name;
+    this.name = name
     this.isFlying = false;
   }
   takeOff() {
+    console.log(`The plane takes off and is flying.`)
     this.isFlying = true;
   }
   land() {
+    console.log(`${this.name} lands and is no longer flying.`)
     this.isFlying = false;
   }
 }
-
+const jet = new Airplane({name: 747 })
+jet.takeOff();
+jet.land();
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -44,8 +48,34 @@ class Airplane {
 */
 
 class Person {
-  
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = []
+  }
+  eat(someFood){
+    console.log(`${this.name} picks up ${someFood}.`)
+    if(this.stomach.length >= 10){
+      console.log(`They're not very hungry, though.`)
+    }else{
+      console.log(`Delicious!`)
+      this.stomach.push(someFood);
+    }
+  }
+  poop(){
+    console.log(`Pushing...`);
+    this.stomach = [];
+    console.log(`${this.name} has pooped. Better clean it up.`)
+  }
+  toString(){
+    console.log(`${this.name} is ${this.age}.`)
+    return `${this.name}, ${this.age}`
+  }
 }
+const trinity = new Person(`Trinity`, 24);
+trinity.toString();
+console.log(trinity.name);
+console.log(trinity.age);
 
 /*
   TASK 2
@@ -62,8 +92,74 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model, milesPerGallon, tankSize){
+    this.model = model,
+    this.milesPerGallon = milesPerGallon,
+    this.tankSize = tankSize;
+    this.tank = 0,
+    this.odometer = 0
+    this.drivableMiles = (this.milesPerGallon * this.tank);
+  }
+
+  checkDash(){
+    console.log(`You check the dashboard. With mileage of ${this.milesPerGallon} miles to the gallon, it looks like you can drive ${this.drivableMiles} miles with what you've got left - all ${this.tank} gallons of it.`);
+  }
+
+  fill(gallons){
+    this.tank += gallons;
+
+    if (gallons > this.tankSize || this.tank > this.tankSize){
+      console.log(`The ${this.model} can only hold ${this.tankSize} gallons of gas. You top it up and save your money.`)
+      this.tank = this.tankSize;
+    } else {
+      console.log(`You stop at a gas station. The ${this.model} has ${this.tank} gallons in the tank now.`);
+    }
+
+    this.drivableMiles = (this.milesPerGallon * this.tank);
+    console.log(`You can drive for ${this.drivableMiles} miles before you'll run out of gas.`)
+  }
+
+  drive(distance){
+
+    
+    if (this.tank >= (distance/this.milesPerGallon)){
+      this.odometer += distance;
+      this.tank -= (distance / this.milesPerGallon);
+      this.drivableMiles = (this.milesPerGallon * this.tank);
+
+
+        if (this.tank > 0){
+          console.log(`You're left with ${(this.tank).toFixed(2)} gallons in the tank. There are ${this.drivableMiles} drivable miles left, and the odometer reads ${this.odometer} miles after driving ${distance} of them.`)
+        } else{
+          console.log(`You feel the car sputter to a halt just as you reach your destination and glance at the dashboard. There are ${this.tank} gallons left in the ${this.model}, and can't drive a single mile more!`)
+        }
+      }
+  }
+
+//     if (this.tank < distance) {
+//       this.drivableMiles = (this.milesPerGallon * this.tank);
+//       console.log(`The ${this.model} won't be able to make the last ${distance - this.drivableMiles} miles...`);
+//       this.tank -= this.drivableMiles;
+//       console.log(`It drives for ${this.drivableMiles} miles before it has ${this.tank} gallons left.`);
+//       this.odometer += (this.drivableMiles);
+//     } 
+//     else {
+//       (console.log(`Something's wrong. The key doesn't start the ignition...`));
+//   }
+// }
+  emergency(){
+    if (this.tank === 0){
+      console.log(`It's a good thing you keep a spare gas can in the back. You'd better find a gas station ASAP, though.`)
+      this.tank += 5;
+      this.drivableMiles = (this.milesPerGallon * this.tank);
+      console.log(`You've refilled the tank and can now drive for ${this.drivableMiles} miles.`)
+    }
+  }
 }
+const solvay = new Car(`Fiat`, 33, 13);
+solvay.checkDash();
+solvay.fill(10);
+solvay.drive(50);
 
 /*
   TASK 3
