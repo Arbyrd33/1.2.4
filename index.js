@@ -120,23 +120,20 @@ class Car {
   }
 
   drive(distance){
-
     
     if (this.tank >= (distance/this.milesPerGallon)){
       this.odometer += distance;
       this.tank -= (distance / this.milesPerGallon);
       this.drivableMiles = (this.milesPerGallon * this.tank);
-
-
         if (this.tank > 0){
           console.log(`You're left with ${(this.tank).toFixed(2)} gallons in the tank. There are ${this.drivableMiles} drivable miles left, and the odometer reads ${this.odometer} miles after driving ${distance} of them.`)
-        } else{
-          console.log(`You feel the car sputter to a halt just as you reach your destination and glance at the dashboard. There are ${this.tank} gallons left in the ${this.model}, and can't drive a single mile more!`)
+        } else {
+          console.log(`You feel the car sputter to a halt just as you reach your destination. You despair as you glance at the dashboard.`)
+          console.log(`There are ${this.tank} gallons left in the ${this.model}, and can't drive a single mile more!`)
+          console.log(`At least you made it on time, you think, and at least the ${this.model} was able to make it for all ${distance} miles.`)
+          console.log(`The odometer tells you that you've traveled a total of ${this.odometer} miles.`)
         }
-      }
-  }
-
-//     if (this.tank < distance) {
+      } else if (this.tank < distance) {
 //       this.drivableMiles = (this.milesPerGallon * this.tank);
 //       console.log(`The ${this.model} won't be able to make the last ${distance - this.drivableMiles} miles...`);
 //       this.tank -= this.drivableMiles;
@@ -145,14 +142,14 @@ class Car {
 //     } 
 //     else {
 //       (console.log(`Something's wrong. The key doesn't start the ignition...`));
-//   }
-// }
+  }
+}
   emergency(){
     if (this.tank === 0){
       console.log(`It's a good thing you keep a spare gas can in the back. You'd better find a gas station ASAP, though.`)
       this.tank += 5;
       this.drivableMiles = (this.milesPerGallon * this.tank);
-      console.log(`You've refilled the tank and can now drive for ${this.drivableMiles} miles.`)
+      console.log(`You've refilled the tank and can now drive for a maximum of ${this.drivableMiles} miles.`)
     }
   }
 }
@@ -160,7 +157,8 @@ const solvay = new Car(`Fiat`, 33, 13);
 solvay.checkDash();
 solvay.fill(10);
 solvay.drive(50);
-
+solvay.drive(280);
+solvay.emergency();
 /*
   TASK 3
     - Write a Lambdasian class.
