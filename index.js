@@ -217,6 +217,12 @@ class Instructor extends Lambdasian {
     this.favLanguage = prop.favLanguage;
     this.catchPhrase = prop.catchPhrase;
   }
+  demo(subjectString){
+    return `Today we are learning about ${subjectString}`
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+  }
 }
 
 
@@ -236,8 +242,22 @@ class Instructor extends Lambdasian {
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
 
-class Student {
-   
+class Student extends Lambdasian {
+   constructor(prop){
+    super(prop);
+    this.previousBackground = prop.previousBackground;
+    this.className = prop.className;
+    this.favSubjects = prop.favSubjects;
+   }
+   listSubjects(){
+     return `Loving ${this.favSubjects}!`
+   }
+   PRAssignment(subj){
+     return `${this.name} has submitted a PR for ${subj}`
+   }
+   sprintChallenge(subj){
+     return `${this.name} has begun sprint challenge on ${subj}`
+   }
 }
 
 /*
