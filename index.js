@@ -99,6 +99,7 @@ class Car {
     this.tank = 0,
     this.odometer = 0
     this.drivableMiles = (this.milesPerGallon * this.tank);
+    this.spareCans = 2;
   }
 
   checkDash(){
@@ -109,7 +110,7 @@ class Car {
     this.tank += gallons;
 
     if (gallons > this.tankSize || this.tank > this.tankSize){
-      console.log(`The ${this.model} can only hold ${this.tankSize} gallons of gas. You top it up and save your money.`)
+      console.log(`Woah, ${gallons} gallons would be way too much! The ${this.model} can only hold ${this.tankSize} gallons of gas. You top it up and save your money.`)
       this.tank = this.tankSize;
     } else {
       console.log(`You stop at a gas station. The ${this.model} has ${this.tank} gallons in the tank now.`);
@@ -122,12 +123,13 @@ class Car {
   drive(distance){
     
     if (this.tank >= (distance/this.milesPerGallon)){
-      this.odometer += distance;
       this.tank -= (distance / this.milesPerGallon);
-      this.drivableMiles = (this.milesPerGallon * this.tank);
         if (this.tank > 0){
+          this.odometer += distance;
+          this.drivableMiles = (this.milesPerGallon * this.tank);
           console.log(`You're left with ${(this.tank).toFixed(2)} gallons in the tank. There are ${this.drivableMiles} drivable miles left, and the odometer reads ${this.odometer} miles after driving ${distance} of them.`)
         } else {
+          this.odometer += distance;
           console.log(`You feel the car sputter to a halt just as you reach your destination. You despair as you glance at the dashboard.`)
           console.log(`There are ${this.tank} gallons left in the ${this.model}, and can't drive a single mile more!`)
           console.log(`At least you made it on time, you think, and at least the ${this.model} was able to make it for all ${distance} miles.`)
@@ -135,7 +137,7 @@ class Car {
         }
     } else if (this.tank < (distance/this.milesPerGallon)) {
       this.drivableMiles = (this.milesPerGallon * this.tank);
-      console.log(`The ${this.model} won't be able to make the last ${distance - this.drivableMiles} miles...`);
+      console.log(`The ${this.model} won't be able to make the last ${(distance - this.drivableMiles).toFixed(2)} miles...`);
       this.tank = 0;
       console.log(`It drives for ${this.drivableMiles} miles before it runs out of gas.`);
       this.odometer += (this.drivableMiles);
@@ -145,21 +147,28 @@ class Car {
 }
   emergency(){
     if (this.tank === 0){
-      console.log(`It's a good thing you keep a spare gas can in the back. You'd better find a gas station ASAP, though.`)
-      this.tank += 5;
-      this.drivableMiles = (this.milesPerGallon * this.tank);
-      console.log(`You've refilled the tank and can now drive for a maximum of ${this.drivableMiles} miles.`)
+      if (this.spareCans > 1){
+        console.log(`It's a good thing you keep spare gas in the back. You'd better find a gas station ASAP, though.`)
+        this.tank += 5;
+        this.spareCans -= 1;
+        this.drivableMiles = (this.milesPerGallon * this.tank);
+        console.log(`You've added 5 gallons to the tank and can now drive for a maximum of ${this.drivableMiles} miles. You only have one spare gas can left.`)
+      } else if (this.spareCans == 1){
+        console.log(`Yikes, can this day get any worse!! You're one more gas can away from getting stranded out here...`)
+        this.tank += 5;
+        this.spareCans -= 1;
+        this.drivableMiles = (this.milesPerGallon * this.tank);
+        console.log(`Let's hope there's a gas station within ${this.drivableMiles} miles of here.`)
+      } else {
+        console.log(`Your ${this.model} putters to a stop and you curse under your breath as you step out. Unfortunately, when you get to the trunk, you realize that you have ${this.spareCans} spare cans of gas left, and you'll have to call a tow truck.`)
+      }
+      
     }
   }
 }
-const solvay = new Car(`Fiat`, 33, 13);
-solvay.checkDash();
-solvay.fill(10);
-solvay.drive(50);
-solvay.drive(280);
-solvay.emergency();
-console.log(`Oh noooo, the nearest gas station is really far awaaayyy...`);
-solvay.drive(167);
+const florence = new Car(`Fiat`, 33, 13);
+console.log('florence.checkDash();')
+florence.checkDash()
 
 /*
   TASK 3
@@ -201,9 +210,15 @@ class Lambdasian {
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
 
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(prop){
+    super(prop);
+    this.specialty = prop.specialty;
+    this.favLanguage = prop.favLanguage;
+    this.catchPhrase = prop.catchPhrase;
+  }
 }
+
 
 /*
   TASK 5
